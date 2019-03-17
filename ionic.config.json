@@ -1,0 +1,7 @@
+{
+  "name": "StreetShare",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

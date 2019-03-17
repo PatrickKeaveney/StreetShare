@@ -1,0 +1,19 @@
+
+.image {
+	margin-left: 1px;
+	margin-right: 1px;
+}
+
+.main-image, .user-image {
+	width: 100px;
+	height: 100px;
+	margin: auto;
+}
+
+ion-label {
+    -webkit-flex: none!important; 
+    flex: none!important; 
+}
+.cog {
+	font-size: 25px;
+  }

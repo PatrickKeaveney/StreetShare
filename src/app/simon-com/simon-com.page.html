@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1.5">
+          <ion-buttons>
+            <ion-back-button></ion-back-button>
+          </ion-buttons>
+        </ion-col>
+        <ion-col size ="9">
+        </ion-col>
+        <ion-col size="1.5">
+          <ion-buttons (click)="presentPopover($event)" >
+            <ion-icon name="cog" class="cog"></ion-icon>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div>
+    <h3 style="width: 100%; text-align: center;">Simon Community</h3>
+  </div>
+  <div>
+    <p>The Simon Communities support over 11,000 men, women and children each year. 
+      We are a network of independent Communities based in Cork, 
+      Dublin, Dundalk, Galway, the Midlands, the Mid West, the North West and the South East, 
+      responding to local needs and supported by a National Office in the areas of policy, research, 
+      communications and best practice. To support or find out more about your local Simon Community please 
+      click on your area below.
+    </p>
+  </div>
+  <div>
+    <ion-list >
+      <ion-item>
+        <ion-label>Select Branch</ion-label>
+        <ion-select interface="popover" placeholder="Select One" [(ngModel)]="BranchId"  >
+          <ion-select-option value="Cork">Cork Simon</ion-select-option>
+          <ion-select-option value="Dublin">Dublin Simon</ion-select-option>
+          <ion-select-option value="Dundalk">Dundalk Simon</ion-select-option>
+          <ion-select-option value="Galway">Galway Simon</ion-select-option>
+          <ion-select-option value="Midlands">Midlands Simon</ion-select-option>
+          <ion-select-option value="Mid_West">Mid West Simon</ion-select-option>
+          <ion-select-option value="North_West">North West Simon</ion-select-option>
+          <ion-select-option value="South_East">South East Simon</ion-select-option>
+          <ion-select-option value="National_Office">National Office</ion-select-option>
+        </ion-select>
+       
+      </ion-item>
+          <button ion-button color="danger" (click)="donate()" >
+            donate
+          </button>
+          <button ion-button (click)="visitSite()" >
+              Visit Site
+          </button>
+    </ion-list>
+  </div>
+</ion-content>

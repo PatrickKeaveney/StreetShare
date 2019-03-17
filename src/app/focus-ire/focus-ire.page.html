@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1.5">
+          <ion-buttons>
+            <ion-back-button></ion-back-button>
+          </ion-buttons>
+        </ion-col>
+        <ion-col size ="9">
+        </ion-col>
+        <ion-col size="1.5">
+          <ion-buttons (click)="presentPopover($event)" >
+            <ion-icon name="cog" class="cog"></ion-icon>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div>
+    <h3 style="width: 100%; text-align: center;">Focus Ireland</h3>
+    <p>Information</p>
+  </div>
+  <div>
+    <button ion-button color="danger" (click)="donateFive()">Donate 5 Euro</button>
+  </div>
+</ion-content>

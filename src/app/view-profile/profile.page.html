@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1.5">
+          <ion-buttons >
+            <ion-back-button></ion-back-button>
+          </ion-buttons>
+        </ion-col>
+        <ion-col size ="9">
+          <ion-title style="width: 100%; text-align: center;">Profile</ion-title>
+        </ion-col>
+        <ion-col size="1.5">
+          <ion-buttons (click)="presentPopover($event)" >
+            <ion-icon name="cog" class="cog"></ion-icon>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding *ngFor="let user of allBeneficiaries" >
+
+  <div style="width: 100%; text-align: center;">
+    <ion-avatar class="user-image" >
+      <ion-img src= {{user.profilePic}} ></ion-img>
+    </ion-avatar>
+    <h2>{{ user.firstName }}</h2>   
+  </div>
+
+ 
+
+  <div>
+    {{ user.story }}
+  </div>
+  <!--
+  <div>
+    <p>Item 1</p>
+      <ion-button fill="solid" expand="block" color="dark" (click)="DonateToItem()">Make Donation</ion-button>
+  </div>
+  <!-- Hide this if possible 
+  <div>
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Bid</ion-label>
+        <ion-input type="text" [(ngModel)]="bid"></ion-input>
+      </ion-item>
+    </ion-list>
+   <ion-button fill="solid" expand="block" color="dark" (click)="linkAccount()">Link Accounts</ion-button>
+  </div>-->
+</ion-content>
+
