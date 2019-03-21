@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "streetchange-988ad",
+  "private_key_id": "e43419455ff0fe25b52afd0df117bd1a90ec1b55",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDGM3fqIVwxK35L\nTKS1lItAbjMZ+dyhf5TyInnyz1/EYPWGzYJSDhLPvrNV4uvKJ5mGuM7eaps7PpDB\n0ORuqdvwn/DiWTWzDzfH16p2r37zoqKdvynd6dKksM0DlzC6gcMOodAqaebXl81B\nWwfdhrWI0mt0sK0XbHVHiJNHbjC/XijHjPV9t8nQCP0q9I9B184hx0P/rcctPom2\nsXjIu6f8zb42nPqwRIfFRMbU1TpWWJ0GL0/SWSHzOZqv9t599RByxDG9u3D1yKSw\nyBlGQAMT1G9LDSTpmBabgFTjcHALhTItGVWE3YU1HoJjTwezhab7PYEdMQu43Pd5\nPYWo/rL/AgMBAAECgf9L2b5a6lrLjGSG/vJwQhhZDFcFzRXc8uB7RiQjfyqcTVpY\nx3HPGc42cQaXIPeCFWsK2rZfJkFX7pJhi2tcwp1EpPhQSEjBEhHZH9va4GSmniH1\nYUkgz+1uA5qAisIxMHB1lsfu77z6e9ScS6CDwFMJUr+g90y0b6F5t3L9dW/h9+ep\nPd0gall28ETsDk7seLiFq04GZTrA3j7YGGE7vknABiWue6SRc4F4lZRJiGiGHbHT\nK/Vkxxfq6e94HMwsPkFakaJ+vkK+VOf3PZeh1szzYaG7h1xx43rYjQyn3N1SORI+\nQlWadrzxX7Ba8FzV5pRFkLomZOl51TrZ+YNoLbECgYEA9MT2KdTWrF1MJTDyOjqv\nAJLC9FodvcCsMDdghrVxwpsjMjs1Vl1K7fg7ht5tUYkbl7Ti4loZs0Ah3qomaKSO\n+tJ0gO45C7SUWfEJgyngajShiSSr4POSRkm2/5uTwv3WYr4jDuZ9nn6qK9KCTZxJ\n0vWKLqPBNizl/M/jYvXX6vcCgYEAz0uE/9p4BcvyeKFJsyZE+1cM04tR7ckKeedk\n5CbTZWYTolPLgcYADVmHqaPEFeVTl/MhsTMh3VEMeM0GMEUF2jT3LVI3oTO2EO7+\nFHcABlijhy/QtUj8h2avQKhmQP3Z1SiXvlrjmbk5IGaLsOZkQQTzFRp0TQoOOEHd\neaYlLjkCgYEAzZRwPIorE/H4dnQ5vnZzbcPWQm099ZXSCV05kWrr9UtfsFzSW4tX\n169aL9i5cHX72ttuhDawx0DiMaYvREySWlBQ0clD2HT+9Nvh5WxStGEoG4vVYMay\n4J4hOWZuIKQaYCzaPTWR5ID2ZIAWOSE/UBQyzyFyshHbyQ7CKOfbRdkCgYEAnaXw\nWugaGUZ2e5klxJIZKhCU15j/0NfxGK6Kwxxn7piH3A7gGSysw3pQOwopyQEj5s5n\n1Cxv17GYy5IY38LOZZmcVaJOXlFGaHBpWMT7htgIXXpWvlfofUzxgTnQsiKcdIiv\nhnv21eTQdjymhf1hRzVtbKI2ypQYJl6pAagCZLkCgYEAiT4t4aE4WAuNEeYdGxMy\n6OjiOJQgBWEq4EBadJ9AjDZabGxL3vPMjOiEP/L2o9HKUtl2bJMSIjBtj6P0gUwS\nYWnliBLivB/KmbfimHEnHwiw/SYvsXgMjfYCo+mS2W2ahiUM9FasBYwog3uMV2PJ\nUCEmsSQ4YVbL19KxSO2653s=\n-----END PRIVATE KEY-----\n",
+  "client_email": "streetchange-988ad@appspot.gserviceaccount.com",
+  "client_id": "110705000352397174270",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/streetchange-988ad%40appspot.gserviceaccount.com"
+}
