@@ -1,3 +1,4 @@
+
 export interface beneficiary {
     Bid?: string;
     bid: string;
@@ -9,5 +10,9 @@ export interface beneficiary {
     needs: string;
     number: number;
     story: string;
+    age: number;
+    location: string;
+    latitude: number;
+    longitude: number;
   }
   

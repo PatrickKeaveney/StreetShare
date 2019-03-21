@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { AlertController } from '@ionic/angular';
+import { PopoverPage  } from '../shared/popover';
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-simon-com',
@@ -12,11 +14,19 @@ export class SimonComPage implements OnInit {
 
   BranchId: any;  //<- equals [(ngModel)]="filtermonthwise" in html;
 
-  constructor(public router: Router, public alertController: AlertController, private iab: InAppBrowser) { }
+  constructor(public router: Router, public alertController: AlertController, private iab: InAppBrowser,
+              public popoverCtrl: PopoverController) { }
 
   ngOnInit() {
   }
-
+  async presentPopover(myEvent) {
+    const popover = await this.popoverCtrl.create({
+      component: PopoverPage,
+      event: myEvent,
+      translucent: false
+    });
+    return await popover.present();
+  }
   visitSite(){
     if(this.BranchId == "Cork"){
       const browser = this.iab.create('https://www.corksimon.ie');

@@ -12,7 +12,8 @@ const routes: Routes = [
   { path: 'beneficiary-settings', loadChildren: './beneficiary-settings/beneficiary-settings.module#BeneficiarySettingsPageModule' },
   { path: 'beneficiary-settings/:id', loadChildren: './beneficiary-settings/beneficiary-settings.module#BeneficiarySettingsPageModule' },
   { path: 'focus-ire', loadChildren: './focus-ire/focus-ire.module#FocusIrePageModule' },
-  { path: 'simon-com', loadChildren: './simon-com/simon-com.module#SimonComPageModule' }
+  { path: 'simon-com', loadChildren: './simon-com/simon-com.module#SimonComPageModule' },
+  { path: 'payment', loadChildren: './payment/payment.module#PaymentPageModule' }
 ];
 @NgModule({
   imports: [

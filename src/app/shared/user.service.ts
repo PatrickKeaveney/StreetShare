@@ -7,21 +7,17 @@ interface user {
 	firstName: string,
 	lastName: string,
 	email: string,
-	uid: string
-}
-interface Beneficiary {
-	password: string,
-	bid: string
+	uid: string,
+	transactions: string
 }
 
 @Injectable()
 export class UserService {
 	private user: user
-	private Beneficiary: Beneficiary
 	constructor(private afAuth: AngularFireAuth) {
 	}
-	setUser(Uid: user) {
-		this.user = Uid
+	setUser(user: user) {
+		this.user = user
 	}
 	getFirstName(): string {
 		return this.user.firstName
@@ -51,7 +47,8 @@ export class UserService {
 				firstName: user.displayName,
 				lastName: user.displayName,
 				email: user.email,
-				uid: user.uid
+				uid: user.uid,
+				transactions: user.displayName
 			})
 
 			return true
@@ -61,10 +58,4 @@ export class UserService {
 	getUID(): string {
 		return this.user.uid
 	}
-	/*getBid(): string {
-		return this.Beneficiary.bid
-	}
-	getBeneficiaryPassword(): string {
-		return this.Beneficiary.password
-	}*/
 }
