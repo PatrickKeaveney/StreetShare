@@ -4,11 +4,11 @@ jobs:
     docker:
       - image: circleci/android:api-28-alpha  # gcloud is baked into this image
     steps:
-      - run:
-          name: Build debug APK and release APK
-          command: |
-            ./gradlew :app:assembleDebug
-            ./gradlew :app:assembleDebugAndroidTest
+     # - run:
+     #     name: Build debug APK and release APK
+     #     command: |
+     #       ./gradlew :app:assembleDebug
+     #       ./gradlew :app:assembleDebugAndroidTest
       - run:
           name: Store Google Service Account
           command: echo $GCLOUD_SERVICE_KEY > C:\Users\PKEAV\Desktop\Senior\FYP\StreetShare\gcloud-service-key.json
