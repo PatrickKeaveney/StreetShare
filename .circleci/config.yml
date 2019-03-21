@@ -15,7 +15,7 @@ jobs:
       - run:
           name: Authorize gcloud and set config defaults
           command: |
-            sudo gcloud auth activate-service-account --key-file=C:\Users\PKEAV\Desktop\Senior\FYP\StreetShare\gcloud-service-key.json
+            sudo gcloud auth activate-service-account --key-file=gcloud-service-key.json
             sudo gcloud --quiet config set project ${streetchange-988ad}
       - run:
           name: Test with Firebase Test Lab
