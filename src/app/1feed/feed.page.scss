@@ -9,3 +9,22 @@
 .cog {
   font-size: 25px;
 }
+.age {
+  height: 100%;
+  vertical-align: middle;
+}
+.row{
+  align-items: center;
+}
+ion-header {
+  background-color: var(--ion-color-primary);
+}
+ion-segment-button {
+  color: var(--ion-color-contrast);
+}
+ion-content{
+	--ion-background-color:rgb(228, 228, 228);
+}
+ion-item {
+  margin: 10px 0;
+}

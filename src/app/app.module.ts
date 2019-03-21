@@ -13,15 +13,19 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import firebaseConfig from '../app/shared/firebase-config';
 import { AngularFirestore, FirestoreSettingsToken } from '@angular/fire/firestore';
-
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { AuthService } from './shared/auth.service';
 import { UserService } from './shared/user.service';
 import { AngularFireAuthModule } from '@angular/fire/auth'
 import { PopoverPage } from '../app/shared/popover';
+import * as firebase from 'firebase/app';
+
+firebase.initializeApp(firebaseConfig);
 
 @NgModule({
   declarations: [AppComponent,
-                 PopoverPage],
+                 PopoverPage,
+                ],
   entryComponents: [PopoverPage],
   imports: [BrowserModule, 
             AngularFireModule.initializeApp(firebaseConfig),
@@ -30,6 +34,7 @@ import { PopoverPage } from '../app/shared/popover';
             IonicModule.forRoot(), 
             AppRoutingModule],
   providers: [
+            Geolocation,
             AuthService,
             UserService,
             NavController,

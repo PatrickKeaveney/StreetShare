@@ -19,7 +19,8 @@ export class RegisterPage implements OnInit {
 	password: string = ""
 	cpassword: string = ""
 	isChecked: false
-  
+	transactions: string =""
+
 	constructor(public alertController: AlertController,
               public afAuth: AngularFireAuth,
               public user: UserService,
@@ -39,7 +40,7 @@ export class RegisterPage implements OnInit {
 		await alert.present()
   }
   async register() {
-		const { firstName, lastName, email, password, cpassword, isChecked } = this
+		const { firstName, lastName, email, password, cpassword, transactions } = this
 		if(password !== cpassword) {
 			return console.error("Passwords don't match")
 		}
@@ -50,7 +51,8 @@ export class RegisterPage implements OnInit {
 				firstName,
 				lastName,
 				email,
-				uid: res.user.uid
+				uid: res.user.uid,
+				transactions,
 			})
 
 			this.afstore.doc(`users/${res.user.uid}`).set({
@@ -58,7 +60,7 @@ export class RegisterPage implements OnInit {
 				lastName,
 				email,
 				uid: res.user.uid,
-				Beneficiary: isChecked
+				transactions
 			})
 			this.presentAlert('Success', 'You are registered!')
 			this.router.navigate(['/login'])

@@ -19,7 +19,7 @@
     </ion-grid>
   </ion-toolbar>
 </ion-header>
-<ion-content padding *ngFor="let user of allBeneficiaries" >
+<ion-content padding *ngFor="let user of allBeneficiaries"  >
 
   <div style="width: 100%; text-align: center;">
     <ion-avatar class="user-image" >
@@ -28,12 +28,43 @@
     <h2>{{ user.firstName }}</h2>   
   </div>
 
- 
+  <ion-segment [(ngModel)]="cat"  style="background: #d6e4ff">
+    <ion-segment-button value="MyStory">
+      <strong>My Story</strong>
+    </ion-segment-button>
+    <ion-segment-button value="Donate">
+      <strong>Donate</strong>
+    </ion-segment-button>
+  </ion-segment>
 
-  <div>
-    {{ user.story }}
+  <div [ngSwitch]="cat">
+    <ion-list *ngSwitchCase="'MyStory'">
+      <ion-card padding style="background:#f5f6f9">
+        <h2 >My Story</h2>
+        <p>{{ user.story }}</p>
+      </ion-card>
+    </ion-list>
+    <ion-list *ngSwitchCase="'Donate'">
+      <ion-card padding style="background:#f5f6f9">
+        <ion-item>
+          <ion-label color="primary" fixed>Amount</ion-label>
+          <ion-input type="number" placeholder="Enter Amount" [(ngModel)]="amount"></ion-input>
+        </ion-item>
+        <div class="payButtonAlignment">
+          <ion-button color="danger" (click)="clearButton()" [disabled]="!amount">
+            Clear
+          </ion-button>
+          <ion-button  (click)="payNow(amount)" [disabled]="!amount">
+            Pay Now
+          </ion-button>
+        </div>
+      </ion-card>
+    </ion-list>
   </div>
+
   <!--
+  
+
   <div>
     <p>Item 1</p>
       <ion-button fill="solid" expand="block" color="dark" (click)="DonateToItem()">Make Donation</ion-button>

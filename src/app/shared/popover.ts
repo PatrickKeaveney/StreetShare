@@ -4,12 +4,12 @@ import { AuthService } from '../shared/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-    template: `
-      <ion-list>
+    template: 
+      `<ion-list>
         <ion-item (click)="signOut()">Logout</ion-item>
+        <ion-item (click)="donations()">Donations</ion-item>
         <ion-item (click)="close()">something Else</ion-item>
-      </ion-list>
-    `
+      </ion-list>`
   })
   export class PopoverPage {
     constructor(public modalCtrl: ModalController,
@@ -24,6 +24,10 @@ import { Router } from '@angular/router';
       this.authService.logout().then(() => {
         this.router.navigate(["/login"]);
       });
+      this.popoverCtrl.dismiss();
+    }
+    donations(){
+      this.router.navigate(["/payment"]);
       this.popoverCtrl.dismiss();
     }
   }
