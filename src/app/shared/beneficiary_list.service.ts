@@ -10,7 +10,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 })
 
 export class beneficiary_list {
-  
+  public beneficiary: beneficiary
   userId: string;
 
   constructor(private afs: AngularFirestore,

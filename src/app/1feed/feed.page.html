@@ -5,7 +5,7 @@
         <ion-col size="1.5">
         </ion-col>
         <ion-col size="9">
-          <ion-title style="width: 100%; text-align: center;">Beneficiaries</ion-title>
+          <ion-title style="width: 100%; text-align: center;">Around Me</ion-title>
         </ion-col>
         <ion-col size="1.5">
           <ion-buttons (click)="presentPopover($event)" >
@@ -44,7 +44,7 @@
                 </ion-avatar>
               </ion-col>
               <ion-col size="8" style="width: 100%; text-align: left;">
-                <h2><strong>{{ BPpl.firstName }}</strong></h2>
+                <h2><strong>{{ BPpl.firstName }}  {{BPpl.age}}</strong></h2>
                 <p>{{ BPpl.story }}</p>
               </ion-col>
             </ion-row>

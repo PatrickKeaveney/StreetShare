@@ -1,29 +1,45 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content padding>
-	<ion-list>
+	<div class="theme-bg"></div>
+	<div class="auth-content">
+	<div padding-horizontal text-center class="animated fadeInDown">
+			<div class="logo"></div>
+			<h4 no-margin>
+				<ion-text color="light" class="fw700">
+					StreetShare
+				</ion-text>
+			</h4>
+		</div>
 
-		<ion-item>
-		  <ion-label position="floating">Email</ion-label>
+	<ion-list  class="rounded">
+		<ion-item> 
+		  <ion-label color="primary" position="floating">Email</ion-label>
 		  <ion-input type="email" [(ngModel)]="email"></ion-input>
 		</ion-item>
 	  
-		<ion-item>
-		  <ion-label position="floating">Password</ion-label>
+		<ion-item >
+		  <ion-label color="primary" position="floating">Password</ion-label>
 		  <ion-input type="password" [(ngModel)]="password"></ion-input>
 		</ion-item>
 		
 	</ion-list>
-
-		<ion-button fill="solid" expand="block" color="dark" (click)="login()">Login</ion-button>
-		<ion-button fill="solid" expand="block" color="light" (click)="Register()">Create New Account</ion-button>
-		<!--<ion-card>
-			<ion-button class="log-in-button" color="primary" expand="block" (click)="doFbLogin()">
-        LOG IN WITH FACEBOOK
-      </ion-button>
-		</ion-card>-->
+	<p text-right tappable (click)="forgotPass()" class="paz">
+		<ion-text color="light">
+			<strong>Forgot Pass?</strong>
+		</ion-text>
+	</p>
+	<ion-button icon-left size="medium" expand="full" shape="round" color="dark" (click)="login()" >
+		<ion-icon name="log-in"></ion-icon>
+		Login
+	</ion-button>
+	<ion-button icon-left size="medium" expand="full" shape="round" color="light" (click)="Register()" >
+		<ion-icon name="log-in"></ion-icon>
+		Create New Account
+	</ion-button>
+	<!--<ion-button fill="solid" expand="block" color="dark" (click)="login()">Login</ion-button>
+		<ion-card>		
+		<ion-button class="log-in-button" color="primary" expand="block" (click)="doFbLogin()">
+			LOG IN WITH FACEBOOK
+		</ion-button>
+	</ion-card>-->
+	</div>
 </ion-content>

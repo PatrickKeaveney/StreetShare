@@ -1,0 +1,23 @@
+ion-content {
+    --background: linear-gradient(135deg, var(--ion-color-dark), var(--ion-color-primary));
+}
+.paz {
+    position: relative;
+    z-index: 10;
+}
+.rounded {
+        width: 100%;
+        height: 135px;
+        border-radius: 50px;
+        border-radius: 10px;
+        margin-bottom: 10px;  
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    margin: 20px auto 8px;
+    border-radius: 10%;
+    background: url("/assets/ionic4start-ico.png") no-repeat;
+    background-size: 100%;
+  }

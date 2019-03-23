@@ -6,6 +6,7 @@ import { NavController, IonInfiniteScroll, PopoverController } from '@ionic/angu
 import { PopoverPage  } from '../shared/popover';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { Response } from '@angular/http';
 
 @Component({
   selector: 'app-feed',
@@ -25,37 +26,17 @@ export class FeedPage implements OnInit, OnDestroy{
   list
   currentLat
   currentLong
-
+  data: any;
+  d: any;
+  distance: string;
+  MyLat: number;
+  MyLong: number;
+  productList: beneficiary[] = [];
   constructor(private db: AngularFireDatabase, private geolocation: Geolocation, private beneficiaryService: beneficiary_list, private navCtrl: NavController, public popoverCtrl: PopoverController){
-    //this.loadedBeneficiaryList = this.allBeneficiary;
-    //this.locate();
-  }
-
-          //sort by geoPoint
-  /*locate(){
-    // set q to the value of the searchbar
-
-    this.geolocation.getCurrentPosition().then((resp) => {
-      this.currentLat =  resp.coords.latitude
-      this.currentLong = resp.coords.longitude
     
-      console.log("lat" + this.currentLat + "- long" + this.currentLong)
-      // if the value is an empty string don't filter the items
-      /*if (!this.currentLat || !this.currentLong) {
-        return;
-      }
-        this.distance = this.calculateDistance(this.currentLat, 53.2707363 , this.currentLong, -9.0568973);
-        console.log("dis" + this.distance)
-    
-    })
   }
-  calculateDistance(lat1:number,lat2:number,long1:number,long2:number){
-    let p = 0.017453292519943295;    // Math.PI / 180
-    let c = Math.cos;
-    let a = 0.5 - c((lat1-lat2) * p) / 2 + c(lat2 * p) *c((lat1) * p) * (1 - c(((long1- long2) * p))) / 2;
-    let dis = (12742 * Math.asin(Math.sqrt(a))); // 2 * R; R = 6371 km
-    return dis;
-  }*/
+ 
+  
   async presentPopover(myEvent) {
     const popover = await this.popoverCtrl.create({
       component: PopoverPage,
@@ -79,7 +60,7 @@ export class FeedPage implements OnInit, OnDestroy{
     }
     this.allBeneficiary = this.allBeneficiary.filter((v) => {
       if(v.firstName && q) {
-        if (v.firstName.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+        if (v.firstName.toLowerCase().indexOf(q.toLowerCase()) > +1) {
           return true;
         }
         return false;
@@ -107,6 +88,8 @@ export class FeedPage implements OnInit, OnDestroy{
     });
   }
   ngOnInit() {
+    this.getCurrentLocation();
+    //console.log("CL" + p );
     this.sub = this.beneficiaryService.allBeneficiaries().subscribe(data => {
       this.allBeneficiary = data.map(e => {
         return {
@@ -114,7 +97,20 @@ export class FeedPage implements OnInit, OnDestroy{
           ...e.payload.doc.data()
         } as beneficiary;
       });
-    });
+     this.data = this.allBeneficiary.map((data) =>  {
+        if(data.latitude != null){
+          this.data = this.applyHaversine(data.latitude, data.longitude)
+          data.distance = this.data
+         // console.log("UL: "+data.firstName +"/   " + data.distance );
+        }
+        this.allBeneficiary.sort((a, b) => {
+          //console.log("UL: "+ a.firstName +"/   " + a.distance );
+          return (a.distance) - (b.distance);
+          
+        });console.log("UL: "+ data.firstName +"/   " + data.distance );
+      });
+    }); 
+    
     this.sub = this.beneficiaryService.allBeneficiaries().subscribe(data => {
       this.loadedBeneficiaryList = data.map(e => {
         return {
@@ -123,6 +119,13 @@ export class FeedPage implements OnInit, OnDestroy{
         } as beneficiary;
       });
     });
+  
+
+    /*this.data = this.applyHaversine(this.d.location);
+
+    this.data.sort((locationA, locationB) => {
+        return locationA.distance - locationB.distance;
+    });*/
   }
   goToProfile(BId){
     console.log("THE PASSED IN ID :" + BId);
@@ -131,6 +134,54 @@ export class FeedPage implements OnInit, OnDestroy{
   }
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+  //calculate distance between users
+  applyHaversine(lat, long){
+
+    let usersLocation = {
+      lat: this.MyLat, 
+      lng: this.MyLong 
+    };
+    let placeLocation = {
+        lat: lat,
+        lng: long
+    };
+    this.distance = this.getDistanceBetweenPoints(usersLocation, placeLocation,'miles').toFixed(2);
+
+    return this.distance
+  }
+  getCurrentLocation() {
+      return this.geolocation.getCurrentPosition({timeout:15000}).then((resp) => {
+        this.MyLat = resp.coords.latitude
+        this.MyLong = resp.coords.longitude
+      }).catch((error) => {
+        console.log('Error getting location', error);
+      });
+    }
+  getDistanceBetweenPoints(start, end, units){
+      let earthRadius = {
+          miles: 3958.8,
+          km: 6371
+      };
+      let R = earthRadius[units || 'miles'];
+      let lat1 = start.lat;
+      let lon1 = start.lng;
+      let lat2 = end.lat;
+      let lon2 = end.lng;
+
+      let dLat = this.toRad((lat2 - lat1));
+      let dLon = this.toRad((lon2 - lon1));
+      let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(this.toRad(lat1)) * Math.cos(this.toRad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+      let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      let d = R * c;
+
+      return d;
+  }
+  toRad(x){
+      return x * Math.PI / 180;
   }
 }
 
