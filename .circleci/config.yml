@@ -20,10 +20,8 @@ gcloud_config: &gcloud_config
 
 jobs:
   build:
-    <<: *defaults
     steps:
       - run:
-          <<: *update_sdk
       - checkout
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-{{ checksum  "base/build.gradle" }}-{{ checksum  "instantapp/build.gradle" }}-{{ checksum  "main/build.gradle" }}-{{ checksum  "tv/build.gradle" }}
