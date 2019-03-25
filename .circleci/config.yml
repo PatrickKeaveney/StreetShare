@@ -20,9 +20,7 @@ jobs:
       - checkout
       - restore_cache:
           key: jars-{{ .Branch }}-{{ checksum  "package-lock.json" }}
-      - run:
-          name: Download Dependencies
-          command: ./gradlew androidDependencies
+      
       - save_cache:
           paths:
             - ~/.gradle
@@ -32,9 +30,7 @@ jobs:
           destination: reports
       - store_test_results:
           path: app/build/test-results
-      - run:
-          name: Assemble APKs
-          command: ./gradlew assembleAndroidTest assemble
+      
       - run:
           name: Dump Google Cloud Credentials to file
           command: echo ${GOOGLE_AUTH} > /home/gcloud-service-key.json
