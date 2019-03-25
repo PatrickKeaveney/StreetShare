@@ -1,84 +1,51 @@
-version: 2.0
-
+version: 2
 jobs:
   build:
     docker:
-      - image: circleci/android:api-28-alpha  # gcloud is baked into this image
+      # specify the version you desire here
+      - image: circleci/android:api-26-alpha
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+
+    working_directory: ~/repo
+
+    environment:
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: -Xmx3200m
+
     steps:
+      - checkout
       - restore_cache:
-          key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
           name: Download Dependencies
-          command: ./gradlew dependencies --no-daemon
+          command: ./gradlew androidDependencies
       - save_cache:
           paths:
             - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-{{ checksum  "base/build.gradle" }}-{{ checksum  "instantapp/build.gradle" }}-{{ checksum  "main/build.gradle" }}-{{ checksum  "tv/build.gradle" }}
-      - run:
-          name: Assemble APKs
-          command: ./gradlew assemble --no-daemon
-      - save_cache:
-          paths:
-            - ~/.gradle/caches
-            - ~/.gradle/wrapper
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      - store_artifacts:
-          path: app/build/outputs/apk
-          destination: apks
       - store_artifacts:
           path: app/build/reports
           destination: reports
-      - store_artifacts:
-          path: build/dependencyUpdates
-          destination: dependencyUpdates
       - store_test_results:
           path: app/build/test-results
-      - persist_to_workspace:
-          root: .
-          paths:
-            - build
-            - app/build
-
-# Google Cloud Service
-
-export_gcloud_key: &export_gcloud_key
-  run:
-    name: Export Google Cloud Service key environment variable
-    command: echo 'export GCLOUD_SERVICE_KEY="$GCLOUD_SERVICE_KEY"' >> $BASH_ENV
-decode_gcloud_key: &decode_gcloud_key
-  run:
-    name: Decode Google Cloud credentials
-    command: echo $GCLOUD_SERVICE_KEY | base64 -di > ${HOME}/client-secret.json
-
-test_instrumented:
-  steps:
-    - *export_gcloud_key
-    - *decode_gcloud_key
-    - run:
-        name: Set Google Cloud target project
-        command: gcloud config set project dazzling-fire-5515
-    - run:
-        name: Authenticate with Google Cloud
-        command: gcloud auth activate-service-account streetchange-988ad@appspot.gserviceaccount.com --key-file ${HOME}/client-secret.json
-    - run:
-        name: Run instrumented test on Firebase Test Lab
-        command: gcloud firebase test android run --type instrumentation --app platform/android/app/build/outputs/apk/debug/app-debug.apk --test platform/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --device model=Nexus5X,version=26,locale=en_US,orientation=portrait --environment-variables coverage=true,coverageFile=/sdcard/tmp/code-coverage/connected/coverage.ec --directories-to-pull=/sdcard/tmp --timeout 20m
-    - run:
-        name: Create directory to store test results
-        command: mkdir firebase
-    - run:
-        name: Download instrumented test results from Firebase Test Lab
-        command: gsutil -m cp -r -U "`gs://staging.streetchange-988ad.appspot.com | tail -1`*" /root/workspace/firebase/
-    - persist_to_workspace:
-        root: .
-        paths:
-          - firebase
-    - store_artifacts:
-        path: firebase/
-        destination: /firebase/
-
-general:
-  branches:
-    only:
-     - master # list of branches to build
-     - develop
+      - run:
+          name: Assemble APKs
+          command: ./gradlew assembleAndroidTest assemble
+      - run:
+          name: Dump Google Cloud Credentials to file
+          command: echo ${GOOGLE_AUTH} > /home/gcloud-service-key.json
+      - run: gcloud auth activate-service-account --key-file /home/gcloud-service-key.json
+      - run: gcloud --quiet config set project streetchange-988ad
+      - run:
+          name: Configure environment
+          command: |
+            echo 'export APK_PATH=`find . -path "*.apk" ! -path "*unaligned.apk" ! -path "*Test*.apk" -print -quit`' >> $BASH_ENV
+            echo 'export TEST_APK_PATH=`find "." "-path" "*Test*.apk" -print -quit`' >> $BASH_ENV
+      - run:
+          name: Run UI Tests
+          command: gcloud firebase test android run --type instrumentation --app \platforms\android\app\build\outputs\apk\debug\app-debug.apk --test \platforms\android\app\build\outputs\apk\debug\app-debug-androidTest.apk --device model=Nexus6P,version=27,locale=en,orientation=portrait --timeout 30m
+          no_output_timeout: 30m
