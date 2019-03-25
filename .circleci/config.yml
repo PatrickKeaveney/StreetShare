@@ -54,7 +54,6 @@ decode_gcloud_key: &decode_gcloud_key
     command: echo $GCLOUD_SERVICE_KEY | base64 -di > ${HOME}/client-secret.json
 
 test_instrumented:
-  <<: *gcloud_config
   steps:
     - *export_gcloud_key
     - *decode_gcloud_key
