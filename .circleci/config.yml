@@ -1,18 +1,22 @@
-version: 2
-jobs:
-  build:
-    docker:
-      - image: beevelop/ionic
-    steps:
-      - checkout
-      - run:
-          name: Install node modules 
-          command: npm install 
-      - run:
-          name: Run unit tests  
-          command: npm test
-      - run:
-          name: Building android 
-          command: ionic cordova build android
-      - store_artifacts:
-          path: platforms/android/build/outputs/apk/android-debug.apk
+version: 2.1
+orbs:
+  firebase: horie1024/firebase-test-lab@volatile
+  jobs:
+    build:
+      docker:
+        - image: 'circleci/android:api-28-alpha'
+      steps:
+        - checkout
+        - run:
+            name: Download Dependencies
+            command: ./gradlew androidDependencies
+        - run:
+            name: Build debug APK and release APK
+            command: |
+              ./gradlew :app:platforms\android\app\build\outputs\apk\debug\app-debug.apk
+              ./gradlew :app:platforms\android\app\build\outputs\apk\debug\app-debug-androidTest.apk
+        - firebase/test:
+            service_account_key: gcloud-service-key.json
+            firebase_project_id: streetchange-988ad
+            type: instrumentation
+            test_settings: 'test_settings.yml:instrumentation-test'
