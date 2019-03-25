@@ -69,4 +69,7 @@ export class RegisterPage implements OnInit {
 			console.dir(error)
 		}
 	}
+	ToLogin(){
+		this.router.navigate(["/login"]);
+	  }
 }

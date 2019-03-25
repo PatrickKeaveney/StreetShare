@@ -60,7 +60,7 @@ export class FeedPage implements OnInit, OnDestroy{
     }
     this.allBeneficiary = this.allBeneficiary.filter((v) => {
       if(v.firstName && q) {
-        if (v.firstName.toLowerCase().indexOf(q.toLowerCase()) > +1) {
+        if (v.firstName.toLowerCase().indexOf(q.toLowerCase()) > -1) {
           return true;
         }
         return false;

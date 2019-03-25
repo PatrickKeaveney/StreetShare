@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, AlertController, Platform  } from '@ionic/angular';
+import { LoadingController, AlertController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/auth.service';
 
@@ -17,6 +17,8 @@ export class LoginPage implements OnInit {
   
   constructor(private authService: AuthService,
               public router: Router,
+              public toastCtrl: ToastController,
+              public loadingCtrl: LoadingController,
               public alertCtrl: AlertController) { }
 
   ngOnInit() {
@@ -43,7 +45,48 @@ export class LoginPage implements OnInit {
   Register(){
     this.router.navigate(["/register"]);
   }
-  loginAsBneficiary(){
-    this.router.navigate(["/loginBeneficiary"]);
-  }
+ /* async forgotPass() {
+    const alert = await this.alertCtrl.create({
+      header: 'Forgot Password?',
+      message: 'Enter you email address to send a reset link password.',
+      inputs: [
+        {
+          name: 'email',
+          type: 'email',
+          placeholder: 'Email'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Confirm',
+          handler: async () => {
+            const loader = await this.loadingCtrl.create({
+              duration: 2000
+            });
+
+            loader.present();
+            loader.onWillDismiss().then(async l => {
+              const toast = await this.toastCtrl.create({
+                showCloseButton: true,
+                message: 'Email was sended successfully.',
+                duration: 3000,
+                position: 'bottom'
+              });
+
+              toast.present();
+            });
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }*/
 }

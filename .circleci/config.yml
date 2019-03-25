@@ -1,34 +1,17 @@
 version: 2
 jobs:
- build:
+  build:
+    working_directory: ~/my-project
     docker:
-      - image: circleci/android:api-28-alpha  # gcloud is baked into this image
+      - image: circleci/node:8-browsers
     steps:
-    - run:
-        name: Set Google Cloud target project
-        command: gcloud config set project dazzling-fire-5515
-    - run:
-        name: Authenticate with Google Cloud
-        command: gcloud auth activate-service-account streetchange-988ad@appspot.gserviceaccount.com --key-file ${HOME}/gcloud-service-key.json
-    - run:
-        name: Run instrumented test on Firebase Test Lab
-        command: gcloud firebase test android run --type instrumentation --app \platforms\android\app\build\outputs\apk\debug\app-debug.apk --test \platforms\android\app\build\outputs\apk\debug\app-debug-androidTest.apk --device model=Nexus5X,version=26,locale=en_US,orientation=portrait --environment-variables coverage=true,coverageFile=/sdcard/tmp/code-coverage/connected/coverage.ec --directories-to-pull=/sdcard/tmp --timeout 20m
-    - run:
-        name: Create directory to store test results
-        command: mkdir firebase
-    - run:
-        name: Download instrumented test results from Firebase Test Lab
-        command: gsutil -m cp -r -U "`gsutil ls gs://staging.streetchange-988ad.appspot.com | tail -1`*" /root/workspace/firebase/
-    - persist_to_workspace:
-        root: .
-        paths:
-          - firebase
-    - store_artifacts:
-        path: firebase/
-        destination: /firebase/
-
-general:
-  branches:
-    only:
-     - master # list of branches to build
-     - develop
+      - checkout
+      - restore_cache:
+          key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - run: npm install
+      - save_cache:
+          key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - "node_modules"
+      - run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+      - run: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js

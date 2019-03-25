@@ -1,36 +1,43 @@
 <ion-content padding>
-	  <ion-list>
-  
+		<div class="theme-bg"></div>
+		<div class="auth-content">
+		<div padding-horizontal text-center class="animated fadeInDown">
+			<div class="logo"></div>
+			<h4 no-margin>
+				<ion-text color="light" class="fw700">
+					StreetShare
+				</ion-text>
+			</h4>
+		</div>
+	  <ion-list class="rounded">
 		  <ion-item>
-			<ion-label position="floating">First Name</ion-label>
-			<ion-input type="text" [(ngModel)]="firstName"></ion-input>
+				<ion-label color="primary" position="floating">First Name</ion-label>
+				<ion-input type="text" [(ngModel)]="firstName"></ion-input>
 			</ion-item>
 			<ion-item>
-        <ion-label position="floating">Last Name</ion-label>
+        <ion-label color="primary" position="floating">Last Name</ion-label>
         <ion-input type="text" [(ngModel)]="lastName"></ion-input>
       </ion-item>
-
 			<ion-item>
-				<ion-label position="floating">Email</ion-label>
+				<ion-label color="primary" position="floating">Email</ion-label>
 				<ion-input type="email" [(ngModel)]="email"></ion-input>
 			</ion-item>
-
 		  <ion-item>
-			<ion-label position="floating">Password</ion-label>
-			<ion-input type="password" [(ngModel)]="password"></ion-input>
+				<ion-label color="primary" position="floating">Password</ion-label>
+				<ion-input type="password" [(ngModel)]="password"></ion-input>
 		  </ion-item>
-
 		  <ion-item>
-			<ion-label position="floating">Confirm Password</ion-label>
-			<ion-input type="password" [(ngModel)]="cpassword"></ion-input>
+				<ion-label color="primary" position="floating">Confirm Password</ion-label>
+				<ion-input type="password" [(ngModel)]="cpassword"></ion-input>
 		  </ion-item>
-		
-			<ion-item >
-				<ion-label>Beneficiary</ion-label>
-				<ion-checkbox slot="end" [(ngModel)]="isChecked"></ion-checkbox>
-			</ion-item>
-
 		</ion-list>
-  
-		<ion-button fill="solid" expand="block" color="dark" (click)="register()">Signup</ion-button>
-  </ion-content>
+		<ion-button icon-left size="medium" expand="full" shape="round" color="dark" (click)="register()" >
+			<ion-icon name="log-in"></ion-icon>
+			Signup
+		</ion-button>
+		<ion-button icon-left size="medium" expand="full" shape="round" color="light" (click)="ToLogin()" >
+			<ion-icon name="arrow-round-back"></ion-icon>
+			Return to Login
+		</ion-button>
+	</div>
+</ion-content>

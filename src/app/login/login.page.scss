@@ -7,17 +7,31 @@ ion-content {
 }
 .rounded {
         width: 100%;
-        height: 135px;
+        height: 140px;
         border-radius: 50px;
         border-radius: 10px;
         margin-bottom: 10px;  
+        
 }
-
+.namelogo{
+    width: 60px;
+    height: 60px;
+    margin: 5px auto 8px;
+    //border-radius: 10%;
+    background: url("/assets/nameLogo.png") no-repeat;
+    background-size: 200%;
+  }
 .logo {
     width: 60px;
     height: 60px;
     margin: 20px auto 8px;
     border-radius: 10%;
-    background: url("/assets/ionic4start-ico.png") no-repeat;
+    background: url("/assets/SSLogo.png") no-repeat;
     background-size: 100%;
   }
+  .icontent {
+justify-content: center;
+	display: flex!important;
+ 	align-items: center!important;
+   
+}
