@@ -6,10 +6,7 @@ jobs:
       - image: circleci/android:api-28-alpha  # gcloud is baked into this image
     steps:
       - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-{{ checksum  "base/build.gradle" }}-{{ checksum  "instantapp/build.gradle" }}-{{ checksum  "main/build.gradle" }}-{{ checksum  "tv/build.gradle" }}
-      - run:
-          name: chmod permissions
-          command: chmod +x ./gradlew
+          key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - run:
           name: Download Dependencies
           command: ./gradlew dependencies --no-daemon
