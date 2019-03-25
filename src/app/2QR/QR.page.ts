@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
-import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 
 @Component({
@@ -12,7 +11,6 @@ export class QRPage implements OnInit {
 
   constructor(
     public qrScanner: QRScanner,
-    private router: Router,
     private navCtrl: NavController
   ) { }
 
