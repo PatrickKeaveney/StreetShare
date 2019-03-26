@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
-import { NavController } from '@ionic/angular';
+import { PopoverController, NavController } from '@ionic/angular';
+import { PopoverPage  } from '../shared/popover';
 
 @Component({
   selector: 'app-QR',
@@ -11,11 +12,20 @@ export class QRPage implements OnInit {
 
   constructor(
     public qrScanner: QRScanner,
-    private navCtrl: NavController
+    private navCtrl: NavController, 
+    public popoverCtrl: PopoverController
   ) { }
 
   ngOnInit() {
     this.doIt();
+  }
+  async presentPopover() {
+    const popover = await this.popoverCtrl.create({
+      component: PopoverPage,
+      event: null,
+      translucent: false
+    });
+    return await popover.present();
   }
 
   doIt() { 
@@ -24,7 +34,7 @@ export class QRPage implements OnInit {
     .then((status: QRScannerStatus) => {
       if (status.authorized) {
         // camera permission was granted
-         alert('authorized');
+         //alert('authorized');
 
         // start scanning
         let scanSub = this.qrScanner.scan().subscribe((text: string) => {
@@ -35,6 +45,7 @@ export class QRPage implements OnInit {
           //alert('scanned');
           this.qrScanner.hide(); // hide camera preview
           scanSub.unsubscribe(); // stop scanning
+          //this.presentPopover()
           this.navCtrl.navigateForward('/view-profile/' + text); // If Scanner has scanned the data go back
         });
 

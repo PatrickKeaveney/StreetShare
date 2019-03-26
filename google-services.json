@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1050282110633",
+    "firebase_url": "https://streetchange-988ad.firebaseio.com",
+    "project_id": "streetchange-988ad",
+    "storage_bucket": "streetchange-988ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050282110633:android:b499bf8c0da3cd9e",
+        "android_client_info": {
+          "package_name": "io.ionic.streetShare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1050282110633-m962ada1m5m9idr91othgumqs0pujfdn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvWpjWAIWm-l_JEf5AgoUk6L4JMHsIFNg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

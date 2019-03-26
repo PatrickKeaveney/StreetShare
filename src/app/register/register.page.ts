@@ -25,7 +25,8 @@ export class RegisterPage implements OnInit {
               public afAuth: AngularFireAuth,
               public user: UserService,
               public afstore: AngularFirestore,
-              public router: Router) { }
+			  public router: Router,
+			  public alertCtrl: AlertController) { }
 
   ngOnInit() {
   }
@@ -67,6 +68,7 @@ export class RegisterPage implements OnInit {
 
 		} catch(error) {
 			console.dir(error)
+			this.presentAlert('Error', ''+error)
 		}
 	}
 	ToLogin(){

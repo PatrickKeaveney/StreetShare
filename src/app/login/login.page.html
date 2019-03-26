@@ -8,8 +8,8 @@
 
 	<ion-list  class="rounded" >
 		<ion-item> 
-		  <ion-label color="primary" position="floating">Email</ion-label>
-		  <ion-input type="email" [(ngModel)]="email"></ion-input>
+			<ion-label color="primary" position="floating">Email</ion-label>
+			<ion-input type="email" [(ngModel)]="email"></ion-input>
 		</ion-item>
 	  
 		<ion-item >
@@ -18,11 +18,11 @@
 		</ion-item>
 		
 	</ion-list>
-	<!--<p text-right tappable (click)="forgotPass()" class="paz">
+	<p text-right tappable (click)="resetPassword(email)" class="paz">
 		<ion-text color="light">
 			<strong>Forgot Pass?</strong>
 		</ion-text>
-	</p>-->
+	</p>
 	<ion-button icon-left size="medium" expand="full" shape="round" color="dark" (click)="login()" >
 		<ion-icon name="log-in"></ion-icon>
 		Login

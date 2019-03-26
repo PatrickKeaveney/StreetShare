@@ -1,22 +1,31 @@
-version: 2.1
-orbs:
-  firebase: horie1024/firebase-test-lab@volatile
-  jobs:
-    build:
-      docker:
-        - image: 'circleci/android:api-28-alpha'
-      steps:
-        - checkout
-        - run:
-            name: Download Dependencies
-            command: ./gradlew androidDependencies
-        - run:
-            name: Build debug APK and release APK
-            command: |
-              ./gradlew :app:platforms\android\app\build\outputs\apk\debug\app-debug.apk
-              ./gradlew :app:platforms\android\app\build\outputs\apk\debug\app-debug-androidTest.apk
-        - firebase/test:
-            service_account_key: gcloud-service-key.json
-            firebase_project_id: streetchange-988ad
-            type: instrumentation
-            test_settings: 'test_settings.yml:instrumentation-test'
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/android:api-28-alpha  # gcloud is baked into this image
+    steps:
+      - run:
+          name: Build debug APK and release APK
+          command: |
+            ./gradlew :app:assembleDebug
+            ./gradlew :app:assembleDebugAndroidTest
+      - run:
+          name: Store Google Service Account
+          command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+      - run:
+          name: Authorize gcloud and set config defaults
+          command: |
+            sudo gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            sudo gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+      - run:
+          name: Test with Firebase Test Lab
+          command: >
+            sudo gcloud firebase test android run
+              --app <local_server_path>/<app_apk>.apk
+              --test <local_server_path>/<app_test_apk>.apk
+              --results-bucket cloud-test-${GOOGLE_PROJECT_ID}
+      - run:
+          name: Install gsutil dependency and copy test results data
+          command: |
+            sudo pip install -U crcmod
+            sudo gsutil -m cp -r -U `sudo gsutil ls gs://[BUCKET_NAME]/[OBJECT_NAME] | tail -1` ${CIRCLE_ARTIFACTS}/ | true

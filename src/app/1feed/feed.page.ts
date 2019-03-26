@@ -32,7 +32,11 @@ export class FeedPage implements OnInit, OnDestroy{
   MyLat: number;
   MyLong: number;
   productList: beneficiary[] = [];
-  constructor(private db: AngularFireDatabase, private geolocation: Geolocation, private beneficiaryService: beneficiary_list, private navCtrl: NavController, public popoverCtrl: PopoverController){
+  constructor(private db: AngularFireDatabase, 
+            private geolocation: Geolocation, 
+            private beneficiaryService: beneficiary_list, 
+            private navCtrl: NavController, 
+            public popoverCtrl: PopoverController){
     
   }
  

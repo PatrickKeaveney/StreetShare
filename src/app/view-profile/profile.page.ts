@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { PopoverController, AlertController } from '@ionic/angular';
 import { PopoverPage  } from '../shared/popover';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal/ngx';
-import { EmailComposer } from '@ionic-native/email-composer/ngx';
+//import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { firestore } from 'firebase/app';
 import { UserService } from '../shared/user.service';
 
@@ -34,9 +34,9 @@ export class ProfilePage {
               private route: ActivatedRoute,
               private afs: AngularFirestore,
               private payPal: PayPal,
-              public alertController: AlertController,
+              public alertController: AlertController, 
               public popoverCtrl: PopoverController,
-              private emailComposer: EmailComposer) {
+              ) {                                             //private emailComposer: EmailComposer
 
     this.beneficiaryId = this.route.snapshot.paramMap.get('id');
     let userId = this.beneficiaryId;
@@ -108,7 +108,7 @@ export class ProfilePage {
 			transactions: firestore.FieldValue.arrayUnion(`${amount}/${this.beneficiaryId}`)
 		})
   }
-  sendReceipt(){
+  /*sendReceipt(){
     this.emailComposer.isAvailable().then((available: boolean) =>{
       if(available) {
         //Now we know we can send
@@ -131,5 +131,5 @@ export class ProfilePage {
       }
       // Send a text message using default options
     this.emailComposer.open(email);
-  } 
+  } */
 }
