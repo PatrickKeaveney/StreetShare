@@ -26,8 +26,8 @@
     </ion-item-sliding>
   </ion-list>
   <ion-list>
-    <ion-item-sliding *ngFor="let BPpl of donations">
-      <ion-item>
+    <ion-item-sliding *ngFor="let BPpl of allBeneficiary; let i = index">
+      <ion-item >
         <ion-label>
           <ion-grid>
             <ion-row>
@@ -36,8 +36,11 @@
                   <ion-img src= {{BPpl.profilePic}} ></ion-img>
                 </ion-avatar>
               </ion-col>
-              <ion-col size="8" style="width: 100%; text-align: left;">
-                <h2>{{ BPpl[0] }} {{ BPpl.amount }}</h2>
+              <ion-col size="7" style="width: 100%; text-align: left;">
+                <h2>{{ BPpl.firstName }}</h2>
+              </ion-col>
+              <ion-col size="2">
+                <h2> {{ BPpl.amount }}</h2> 
               </ion-col>
             </ion-row>
           </ion-grid>

@@ -32,6 +32,9 @@
     <ion-segment-button value="MyStory">
       <strong>My Story</strong>
     </ion-segment-button>
+    <ion-segment-button value="Items">
+      <strong>Items</strong>
+    </ion-segment-button>
     <ion-segment-button value="Donate">
       <strong>Donate</strong>
     </ion-segment-button>
@@ -40,8 +43,18 @@
   <div [ngSwitch]="cat">
     <ion-list *ngSwitchCase="'MyStory'">
       <ion-card padding style="background:#f5f6f9">
-        <h2 >My Story</h2>
+        <h3>My Story</h3>
         <p>{{ user.story }}</p>
+      </ion-card>
+    </ion-list>
+    <ion-list *ngSwitchCase="'Items'">
+      <ion-card padding style="background:#f5f6f9">
+        <h3 >Items</h3>
+        <p (click)="presentInfoAlert(user.needs[0], user.needs[1], user.collectionPoint)">{{ user.needs[0] }}</p>
+        <p (click)="presentInfoAlert(user.needs[2], user.needs[3], user.collectionPoint)">{{ user.needs[2] }}</p>
+        <p (click)="presentInfoAlert(user.needs[4], user.needs[6], user.collectionPoint)">{{ user.needs[4] }}</p>
+        <p (click)="presentInfoAlert(user.needs[5], user.needs[7], user.collectionPoint)">{{ user.needs[5] }}</p>
+
       </ion-card>
     </ion-list>
     <ion-list *ngSwitchCase="'Donate'">
@@ -54,7 +67,7 @@
           <ion-button color="danger" (click)="clearButton()" [disabled]="!amount">
             Clear
           </ion-button>
-          <ion-button  (click)="payNow(amount)" [disabled]="!amount">
+          <ion-button  (click)="donateNow(amount)" [disabled]="!amount">
             Pay Now
           </ion-button>
         </div>

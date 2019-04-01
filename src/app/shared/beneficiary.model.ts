@@ -1,6 +1,6 @@
 export interface beneficiary {
     Bid?: string;
-    bid: string;
+    bid: String;
     firstName: string;
     lastName: string;
     password: string;
@@ -14,5 +14,7 @@ export interface beneficiary {
     latitude: number;
     longitude: number;
     distance: number;
+    amount: number;
+    collectionPoint: string;
   }
   

@@ -56,6 +56,6 @@ export class UserService {
 		return false
 	}
 	getUID(): string {
-		return this.user.uid
+		return this.user.uid 
 	}
 }

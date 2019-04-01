@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { AlertController } from '@ionic/angular';
 import { PopoverPage  } from '../shared/popover';
@@ -14,7 +13,8 @@ export class SimonComPage implements OnInit {
 
   BranchId: any;  //<- equals [(ngModel)]="filtermonthwise" in html;
 
-  constructor(public router: Router, public alertController: AlertController, private iab: InAppBrowser,
+  constructor(public alertController: AlertController, 
+              private iab: InAppBrowser,
               public popoverCtrl: PopoverController) { }
 
   ngOnInit() {

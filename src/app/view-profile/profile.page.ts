@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import { PopoverController, AlertController } from '@ionic/angular';
 import { PopoverPage  } from '../shared/popover';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal/ngx';
-//import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { firestore } from 'firebase/app';
 import { UserService } from '../shared/user.service';
 
@@ -35,16 +34,14 @@ export class ProfilePage {
               private afs: AngularFirestore,
               private payPal: PayPal,
               public alertController: AlertController, 
-              public popoverCtrl: PopoverController,
-              ) {                                             //private emailComposer: EmailComposer
+              public popoverCtrl: PopoverController,) 
+  {                                            
+    this.beneficiaryId = this.route.snapshot.paramMap.get('id');    
+    let userId = this.beneficiaryId;                              //id value is assigned to userId
+    console.log("PASSED IN USER ID : " + userId);
 
-    this.beneficiaryId = this.route.snapshot.paramMap.get('id');
-    let userId = this.beneficiaryId;
-    console.log("PASSED USER ID : " + userId);
-
-    
-    this.sub = this.beneficiaryService.getBeneficiaryById(userId).subscribe(data => {
-      this.allBeneficiaries = data.map(e => {
+    this.sub = this.beneficiaryService.getBeneficiaryById(userId).subscribe(data => {   //get client by id is called
+      this.allBeneficiaries = data.map(e => {                                             //client information is returned
         return {
           Bid: e.payload.doc.id,
           ...e.payload.doc.data()
@@ -61,6 +58,15 @@ export class ProfilePage {
 
     await alert.present();
   }
+  async presentInfoAlert(item, item1, item2) {
+    const alert = await this.alertController.create({
+      header: item + " - "+item1,
+      message: "If you would like to donate this item, the collection point is at " +item2,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
   async presentPopover(myEvent) {
     const popover = await this.popoverCtrl.create({
       component: PopoverPage,
@@ -69,67 +75,34 @@ export class ProfilePage {
     });
     return await popover.present();
   }
-  linkAccount(){
-    if( this.beneficiaryId == this.bid){//password == this.pw &&
-      this.router.navigate(["/beneficiary-settings"]);
-      console.log("PASSED USER ID : " + this.bid);
-    }
-  }
   clearButton() {
     this.amount = 0;
   }
-  payNow(amount) {
+  donateNow(amount) {
     console.log(" Pay Amount "+this.amount);
-
     this.payPal.init({
       PayPalEnvironmentProduction: '',
       PayPalEnvironmentSandbox: 'AXPtSIFiY2S77Qe53F3Wdjcntp6XFwrZmxpqYyGVcGKfqvvbGdCdVw17pfvf4eZKEqJJjdD5h3YqVxVi'
     }).then(() => {
-      // Environments: PayPalEnvironmentNoNetwork, PayPalEnvironmentSandbox, PayPalEnvironmentProduction
+
       this.payPal.prepareToRender('PayPalEnvironmentSandbox', new PayPalConfiguration({
         merchantName: 'CaseWorker'
-        // Only needed if you get an "Internal Service Error" after PayPal login!
-        //payPalShippingAddressOption: 2 // PayPalShippingAddressOptionPayPal
+
       })).then(() => {
         let payment = new PayPalPayment(this.amount, 'EUR', 'Description', 'sale');
         this.payPal.renderSinglePaymentUI(payment).then(() => {
         }, () => {
-          // Error or render dialog closed without being successful
-        });
+          // Error 
+        }); 
       }, () => {
         // Error in configuration
       });
     }, () => {
-      // Error in initialization, maybe PayPal isn't supported or something else
+      // Error in initialization
     });
     this.presentAlert();
-    //this.sendReceipt();
-    this.afs.doc(`users/${this.user.getUID()}`).update({
+    this.afs.doc(`users/${this.user.getUID()}`).update({                        //donation amount and donee id is recorded
 			transactions: firestore.FieldValue.arrayUnion(`${amount}/${this.beneficiaryId}`)
-		})
+    })
   }
-  /*sendReceipt(){
-    this.emailComposer.isAvailable().then((available: boolean) =>{
-      if(available) {
-        //Now we know we can send
-      }
-      });
-      
-      let email = {
-        to: 'pakkeav@gmail.com',
-        cc: 'erika@mustermann.de',
-        bcc: ['john@doe.com', 'jane@doe.com'],
-        attachments: [
-          'file://img/logo.png',
-          'res://icon.png',
-          'base64:icon.png//iVBORw0KGgoAAAANSUhEUg...',
-          'file://README.pdf'
-        ],
-        subject: 'Paypal',
-        body: 'How are you? Nice greetings from Leipzig',
-        isHtml: true
-      }
-      // Send a text message using default options
-    this.emailComposer.open(email);
-  } */
-}
+} 

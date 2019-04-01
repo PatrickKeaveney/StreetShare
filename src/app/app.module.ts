@@ -13,6 +13,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestore, FirestoreSettingsToken } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth'
+import { AngularFireDatabase } from '@angular/fire/database';
 
 import firebaseConfig from '../app/shared/firebase-config';
 import * as firebase from 'firebase/app';
@@ -20,7 +21,9 @@ import { Firebase } from '@ionic-native/firebase/ngx';
 
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { FcmService } from './shared/fcm.service';
 import { AuthService } from './shared/auth.service';
 import { UserService } from './shared/user.service';
@@ -30,7 +33,7 @@ firebase.initializeApp(firebaseConfig);
 
 @NgModule({
   declarations: [AppComponent,
-                 PopoverPage,
+                 PopoverPage, 
                 ],
   entryComponents: [PopoverPage],
   imports: [BrowserModule, 
@@ -41,6 +44,9 @@ firebase.initializeApp(firebaseConfig);
             IonicModule.forRoot(), 
             AppRoutingModule],
   providers: [
+            EmailComposer,
+            AngularFireDatabase,
+            InAppBrowser,
             QRScanner,
             FcmService,
             Geolocation,

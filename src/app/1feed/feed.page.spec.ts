@@ -1,16 +1,21 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { AngularFireDatabase } from '@angular/fire/database';
 import { FeedPage } from './feed.page';
 
 describe('FeedPage', () => {
+ 
   let component: FeedPage;
   let fixture: ComponentFixture<FeedPage>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    TestBed.configureTestingModule({ 
       declarations: [FeedPage],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      providers: [
+        AngularFireDatabase,
+      ],
     }).compileComponents();
   }));
 

@@ -11,6 +11,9 @@ describe('DonatePage', () => {
     TestBed.configureTestingModule({
       declarations: [ DonatePage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      providers: [
+        Location,
+      ],
     })
     .compileComponents();
   }));

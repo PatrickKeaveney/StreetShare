@@ -9,11 +9,9 @@ const routes: Routes = [
   { path: 'view-profile/:id', loadChildren: './view-profile/profile.module#ProfilePageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
-  { path: 'beneficiary-settings', loadChildren: './beneficiary-settings/beneficiary-settings.module#BeneficiarySettingsPageModule' },
-  { path: 'beneficiary-settings/:id', loadChildren: './beneficiary-settings/beneficiary-settings.module#BeneficiarySettingsPageModule' },
   { path: 'focus-ire', loadChildren: './focus-ire/focus-ire.module#FocusIrePageModule' },
   { path: 'simon-com', loadChildren: './simon-com/simon-com.module#SimonComPageModule' },
-  { path: 'payment', loadChildren: './payment/payment.module#PaymentPageModule' }
+  { path: 'payment', loadChildren: './payment/payment.module#PaymentPageModule' },
 ];
 @NgModule({
   imports: [
